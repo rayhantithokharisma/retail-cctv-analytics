@@ -108,7 +108,8 @@ gets populated:
 | :--- | :--- | :--- |
 | `data/videos/*.mp4` | Raw source footage (`entrance.mp4`, `interior.mp4`) | **Not downloadable.** Copy the assignment-supplied files into `data/videos/` manually before running anything. |
 | `models/*.pt` | YOLO11m-Pose weights (`yolo11m-pose.pt`) | `bash models/download_models.sh` — fetches it via `ultralytics`' asset downloader. The script is idempotent; it skips files already present. |
-| `outputs/*.mp4` | Rendered annotated overlay videos | Produced by `render-entrance-video` / `render-interior-video` (or `--render`). Never hand-authored, so they're not committed. |
+| `outputs/*.mp4` | Rendered annotated overlay videos | Produced by `render-entrance-video` / `render-interior-video` (or `--render`). Never hand-authored, so they're not committed — also available pre-built via the Drive mirror below. |
+| `outputs/debug/{scene}_observations.parquet`, `outputs/debug/{scene}_embeddings.npy` | Pass-1 perception cache (§5.1) — up to ~41 MB per file | Regenerate with a full `--recache` run (§5.1), or grab the pre-built pair from the Drive mirror below to skip Pass 1 entirely. |
 | `__pycache__/`, `.pytest_cache/`, `.venv/`, `.DS_Store`, `.idea/`, `.vscode/` | Standard interpreter/tooling/editor clutter | Regenerated automatically by Python, pytest, your venv manager, and your editor. |
 
 Notes:
@@ -119,6 +120,21 @@ Notes:
 - The `Dockerfile` does `COPY . .` and does **not** run `download_models.sh` or fetch videos
   itself — it assumes `models/` and `data/videos/` are already populated on the host before
   `docker build` runs. Run the two steps above first, then build the image.
+
+### Drive Mirror (pre-built annotated videos + Pass-1 cache)
+
+The rendered annotated videos (`entrance_annotated.mp4`, `interior_annotated.mp4`) and the full
+Pass-1 cache for both scenes (`entrance_observations.parquet` / `entrance_embeddings.npy`,
+`interior_observations.parquet` / `interior_embeddings.npy`) are too large to commit to git and
+are mirrored here instead:
+
+**[Google Drive folder](https://drive.google.com/drive/folders/1cP3P2UX7IA7HknzgjW2NZWBvlkXK_Xyu?usp=sharing)**
+
+To use the cache pair, drop both files for a scene into `outputs/debug/` with their original
+names, then run `run-entrance` / `run-interior` **without** `--recache` — Pass 1 is skipped and
+Pass 2 (stitching, tasks, CSVs) runs against them directly (§5.1). This is a convenience mirror
+for reviewers who want the outputs without re-running the ~GPU/MPS-heavy perception pass; treat
+a fresh `--recache` run as the source of truth if you're reproducing or auditing results.
 
 ---
 
