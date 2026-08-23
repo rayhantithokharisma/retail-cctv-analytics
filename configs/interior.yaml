@@ -1,0 +1,102 @@
+path: "data/videos/interior.mp4"
+fps: 30.0
+width: 1280
+height: 720
+
+scale_map:
+  a: 0.20
+  b: 60.0
+
+tracker:
+  tracker_type: botsort
+  track_high_thresh: 0.40
+  track_low_thresh: 0.08
+  new_track_thresh: 0.65
+  track_buffer: 90
+  match_thresh: 0.85
+  fuse_score: true
+  gmc_method: "none"
+  with_reid: true
+  proximity_thresh: 0.50
+  appearance_thresh: 0.25
+
+stitch:
+  max_gap_frames: 60
+  motion_gate_bh: 2.5
+  scale_gate_frac: 0.40
+  direction_gate_deg: 60.0
+  cost_max: 0.45
+  w_appearance: 0.55
+  w_motion: 0.30
+  w_scale: 0.15
+
+smoothing:
+  median_win: 15
+  savgol_win: 21
+  savgol_order: 2
+  max_interp_gap: 10
+
+task2:
+  # Shelf rectangles are loaded from the VIA ground-truth annotation below —
+  # do NOT hand-draw shelf geometry here. Optional per-shelf entries under
+  # `shelves:` only override thresholds (min_bbox_height, facing_cos_floor_deg).
+  annotation_csv: "data/annotations/interior_annotation.csv"
+  shelves: []
+  # Scene-artifact exclusions (verified frame-by-frame against the footage):
+  # a foot point inside any of these polygons is never a shelf candidate.
+  ignore_zones:
+    # Top-left wall MIRROR: reflections of shoppers are detected as people and
+    # would otherwise hallucinate shelf-d interest. Real shelf-d browsers stand
+    # below y~380 next to the wall strip, so nothing legitimate is lost.
+    - points:
+        - [50.0, 95.0]
+        - [195.0, 95.0]
+        - [195.0, 335.0]
+        - [50.0, 335.0]
+    # Cashier counter + glass staff desk (blue-carpet area, right side): people
+    # standing here are paying / working at the register, not browsing shelf-a.
+    - points:
+        - [845.0, 100.0]
+        - [1280.0, 100.0]
+        - [1280.0, 480.0]
+        - [1105.0, 480.0]
+        - [1005.0, 365.0]
+        - [985.0, 255.0]
+        - [845.0, 220.0]
+  # A person is a shelf-interaction candidate when ALL hold for a frame:
+  #   1. foot within reach_dist_bh body-heights of the shelf rect (perspective-aware:
+  #      measured against the person's own bbox height), verified visually that true
+  #      browsers measure 0.6-1.1 BH from the rect while passers-by are >= 1.5 BH
+  #   2. torso facing the shelf rect centre within facing_cos_floor_deg
+  #   3. slower than engage_speed_bh_s (browsing, not walking through)
+  reach_dist_bh: 1.2
+  facing_cos_floor_deg: 80.0
+  engage_speed_bh_s: 0.35
+  min_bbox_height: 40.0
+  event:
+    t_on_s: 2.0   # sustained attention before an interest event starts
+    t_off_s: 3.0  # gap that ends an episode; returning after it = new event
+
+
+staff:
+  apron_colours:
+    - name: terracotta
+      h: [2, 18]
+      s: [120, 255]
+      v: [60, 220]
+    - name: dark_navy_logo
+      h: [100, 130]
+      s: [60, 255]
+      v: [20, 110]
+  staff_zone:
+    points:
+      - [850.0, 100.0]
+      - [1150.0, 100.0]
+      - [1150.0, 250.0]
+      - [850.0, 250.0]
+  w_apron: 0.60
+  w_counter: 0.25
+  w_dwell: 0.15
+  staff_score_threshold: 0.50
+  counter_prior_norm_s: 1.0
+  dwell_prior_norm_s: 60.0

@@ -1,0 +1,100 @@
+path: "data/videos/entrance.mp4"
+fps: 30.0
+width: 1280
+height: 720
+
+scale_map:
+  a: 0.136
+  b: 62.0
+
+tracker:
+  tracker_type: botsort
+  track_high_thresh: 0.40
+  track_low_thresh: 0.08
+  new_track_thresh: 0.65
+  track_buffer: 90
+  match_thresh: 0.85
+  fuse_score: true
+  gmc_method: "none"
+  with_reid: true
+  proximity_thresh: 0.50
+  appearance_thresh: 0.25
+
+stitch:
+  max_gap_frames: 60
+  motion_gate_bh: 2.5
+  scale_gate_frac: 0.40
+  direction_gate_deg: 60.0
+  cost_max: 0.45
+  w_appearance: 0.55
+  w_motion: 0.30
+  w_scale: 0.15
+
+smoothing:
+  median_win: 15
+  savgol_win: 21
+  savgol_order: 2
+  max_interp_gap: 10
+
+task1:
+  hallway:
+    points:
+      - [380.0, 242.0]
+      - [510.0, 176.0]
+      - [1162.0, 312.0]
+      - [1122.0, 459.0]
+  entrance_line:
+    p1: [362.0, 267.0]
+    p2: [1117.0, 498.0]
+    store_side_sign: 1
+  storefront_zone:
+    points:
+      - [362.0, 267.0]
+      - [380.0, 242.0]
+      - [1122.0, 459.0]
+      - [1117.0, 498.0]
+  min_bbox_height: 70.0
+  w_orientation: 0.40
+  w_decel: 0.25
+  w_approach: 0.20
+  w_dwell: 0.15
+  orientation_cos_floor_deg: 75.0
+  interest_threshold: 0.55
+  interest_min_duration_s: 0.8
+  entered_dwell_s: 2.0
+  entered_depth_bh: 1.0
+  entered_deadzone_bh: 0.25
+  event:
+    t_on_s: 2.0
+    t_off_s: 3.0
+
+task3:
+  proximity_bh: 0.9
+  orientation_cos_floor_deg: 60.0
+  co_stationary_bh_s: 0.35
+  event:
+    t_on_s: 2.0
+    t_off_s: 3.0
+
+staff:
+  apron_colours:
+    - name: terracotta
+      h: [2, 18]
+      s: [120, 255]
+      v: [60, 220]
+    - name: dark_navy_logo
+      h: [100, 130]
+      s: [60, 255]
+      v: [20, 110]
+  staff_zone:
+    points:
+      - [0.0, 560.0]
+      - [250.0, 560.0]
+      - [250.0, 720.0]
+      - [0.0, 720.0]
+  w_apron: 0.60
+  w_counter: 0.25
+  w_dwell: 0.15
+  staff_score_threshold: 0.50
+  counter_prior_norm_s: 1.0
+  dwell_prior_norm_s: 60.0

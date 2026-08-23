@@ -1,0 +1,24 @@
+entrance-line:
+  shape_type: polyline
+  points:
+  - !!python/tuple
+    - 362.0
+    - 267.0
+  - !!python/tuple
+    - 1117.0
+    - 498.0
+hallway:
+  shape_type: polygon
+  points:
+  - !!python/tuple
+    - 380.0
+    - 242.0
+  - !!python/tuple
+    - 510.0
+    - 176.0
+  - !!python/tuple
+    - 1162.0
+    - 312.0
+  - !!python/tuple
+    - 1122.0
+    - 459.0

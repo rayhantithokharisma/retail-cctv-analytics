@@ -1,0 +1,13 @@
+# BoT-SORT Tracker Configuration for Entrance
+tracker_type: botsort
+track_high_thresh: 0.40    # ↑ from 0.25: suppresses junk tracks from reflections/mannequins
+track_low_thresh: 0.08     # ↓ keeps low-conf boxes usable for 2nd-stage association
+new_track_thresh: 0.65     # ↑ a new identity must be strongly evidenced
+track_buffer: 90           # 3 s @30fps — survives the podium/easel occlusions (§1.1)
+match_thresh: 0.85
+fuse_score: true
+gmc_method: none           # fixed camera: motion compensation is cost + noise, nothing else
+with_reid: true
+proximity_thresh: 0.50
+appearance_thresh: 0.25
+model: models/yolo26n-reid.onnx

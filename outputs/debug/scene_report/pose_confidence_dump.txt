@@ -1,0 +1,10 @@
+# Hallway Pose Confidence Measurements (from plan §1.4)
+
+t=130  p2 h=100  head-KP conf [0.98 0.98 0.88 0.92 0.26]  shoulders [1.00 0.87]
+       p5 h= 92  head-KP conf [0.41 0.56 0.07 0.93 0.12]  shoulders [1.00 0.85]
+       p6 h=140  head-KP conf [0.62 0.07 0.78 0.02 0.95]  shoulders [0.84 0.99]
+t=420  p2 h=104  head-KP conf [0.73 0.39 0.66 0.14 0.62]  shoulders [0.98 0.95]
+
+Findings:
+- Shoulder keypoints are reliably confident (0.84-1.00) even at 92 px bbox height.
+- Facial keypoints show distinct asymmetry (head-yaw).

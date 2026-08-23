@@ -1,0 +1,60 @@
+shelf-c:
+  shape_type: rect
+  points:
+  - !!python/tuple
+    - 461.0
+    - 251.0
+  - !!python/tuple
+    - 563.0
+    - 251.0
+  - !!python/tuple
+    - 563.0
+    - 280.0
+  - !!python/tuple
+    - 461.0
+    - 280.0
+shelf-b:
+  shape_type: rect
+  points:
+  - !!python/tuple
+    - 540.0
+    - 443.0
+  - !!python/tuple
+    - 641.0
+    - 443.0
+  - !!python/tuple
+    - 641.0
+    - 494.0
+  - !!python/tuple
+    - 540.0
+    - 494.0
+shelf-d:
+  shape_type: rect
+  points:
+  - !!python/tuple
+    - 42.0
+    - 435.0
+  - !!python/tuple
+    - 129.0
+    - 435.0
+  - !!python/tuple
+    - 129.0
+    - 473.0
+  - !!python/tuple
+    - 42.0
+    - 473.0
+shelf-a:
+  shape_type: rect
+  points:
+  - !!python/tuple
+    - 823.0
+    - 293.0
+  - !!python/tuple
+    - 908.0
+    - 293.0
+  - !!python/tuple
+    - 908.0
+    - 353.0
+  - !!python/tuple
+    - 823.0
+    - 353.0

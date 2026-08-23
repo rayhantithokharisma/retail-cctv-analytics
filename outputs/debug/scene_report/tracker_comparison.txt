@@ -1,0 +1,5 @@
+# Tracker ID Count Comparison (t = 100-130s window)
+
+- Manual Ground Truth: ~8-10 distinct people
+- Raw ByteTrack: 14 unique hallway IDs (30-50% over-count)
+- BoT-SORT + Offline Stitching: ~9-10 stitched identities
